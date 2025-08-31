@@ -1,4 +1,4 @@
-package co.com.tanos.model.user;
+package co.com.tanos.model.user.exceptions;
 
 public class ValidationException extends RuntimeException{
 

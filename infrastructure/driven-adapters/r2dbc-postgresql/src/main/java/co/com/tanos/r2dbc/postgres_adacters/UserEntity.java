@@ -1,4 +1,4 @@
-package co.com.tanos.r2dbc;
+package co.com.tanos.r2dbc.postgres_adacters;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
@@ -13,6 +13,7 @@ public class UserEntity {
 
     @Id
     private Long id;
+    private Long dni;
     private String name;
     @Column("last_name")
     private String lastName;

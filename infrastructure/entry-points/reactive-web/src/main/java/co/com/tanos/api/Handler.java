@@ -1,8 +1,12 @@
 package co.com.tanos.api;
 
 import co.com.tanos.model.user.User;
+import co.com.tanos.api.dto.UserRequest;
+import co.com.tanos.api.dto.UserResponse;
 import co.com.tanos.usecase.user.UserUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -13,22 +17,31 @@ import reactor.core.publisher.Mono;
 public class Handler {
 
 private  final UserUseCase useCase;
-//private  final UseCase2 useCase2;
 
-    public Mono<ServerResponse> listenGETUseCase(ServerRequest serverRequest) {
-        // useCase.logic();
-        return ServerResponse.ok().bodyValue("");
+
+    public Mono<ServerResponse> createUser(ServerRequest request) {
+        return request.bodyToMono(UserRequest.class)
+                .flatMap(userRequest -> {
+                    User user = User.builder().dni(userRequest.dni()).name(userRequest.name()).lastName(userRequest.lastName()).address(userRequest.address())
+                            .email(userRequest.email()).salary(userRequest.salary()).birdDate(userRequest.birdDate()).phoneNumber(userRequest.phoneNumber())
+                            .build();
+                    return useCase.useCaseUserRegister(user);
+                })
+                .map(user -> new UserResponse(user.getDni(), user.getName(), user.getEmail()))
+                .flatMap(userResponse -> ServerResponse
+                        .status(HttpStatus.CREATED)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .bodyValue(userResponse));
     }
 
-    public Mono<ServerResponse> listenGETOtherUseCase(ServerRequest serverRequest) {
-        // useCase2.logic();
-        return ServerResponse.ok().bodyValue("");
+    public Mono<ServerResponse> getUserByDni(ServerRequest request) {
+        Long id = Long.valueOf(request.pathVariable("id"));
+        return useCase.getUserFindByDni(id)
+                .map(user -> new UserResponse(user.getDni(), user.getName(), user.getEmail()))
+                .flatMap(user -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .bodyValue(user))
+                .switchIfEmpty(ServerResponse.notFound().build());
     }
 
-    public Mono<ServerResponse> listenPOSTUseCase(ServerRequest serverRequest) {
-        // useCase.logic();
-        return serverRequest.bodyToMono(User.class)
-                .flatMap(useCase::useCaseUserRegister)
-                .flatMap(user -> ServerResponse.ok().bodyValue(user));
-    }
 }

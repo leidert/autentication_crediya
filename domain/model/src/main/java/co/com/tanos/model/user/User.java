@@ -15,6 +15,7 @@ import java.time.LocalDate;
 public class User {
 
     private Long id;
+    private Long dni;
     private String name;
     private String lastName;
     private LocalDate birdDate;
@@ -22,4 +23,5 @@ public class User {
     private String phoneNumber;
     private String email;
     private Long salary;
+
 }
