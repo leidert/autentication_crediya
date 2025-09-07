@@ -1,4 +1,4 @@
-package co.com.tanos.r2dbc.postgres_adacters;
+package co.com.tanos.r2dbc.postgres_adapters.entities;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;

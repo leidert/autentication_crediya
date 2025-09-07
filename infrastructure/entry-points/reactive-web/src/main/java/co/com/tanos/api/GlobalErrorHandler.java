@@ -32,7 +32,7 @@ public class GlobalErrorHandler implements ErrorWebExceptionHandler {
             message = ex.getMessage();
         } else {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
-            message = "error del sistema";
+            message = ex.getMessage();
         }
 
         ApiError apiError = new ApiError(status.value(), message);

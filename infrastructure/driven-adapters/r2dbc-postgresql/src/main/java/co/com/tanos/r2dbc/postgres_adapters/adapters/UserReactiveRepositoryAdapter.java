@@ -1,8 +1,10 @@
-package co.com.tanos.r2dbc.postgres_adacters;
+package co.com.tanos.r2dbc.postgres_adapters.adapters;
 
 import co.com.tanos.model.user.User;
 import co.com.tanos.model.user.gateways.UserRepository;
 import co.com.tanos.r2dbc.helper.ReactiveAdapterOperations;
+import co.com.tanos.r2dbc.postgres_adapters.entities.UserEntity;
+import co.com.tanos.r2dbc.postgres_adapters.repositorys.UserReactiveRepository;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.reactive.TransactionalOperator;

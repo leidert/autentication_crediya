@@ -1,4 +1,4 @@
-package co.com.tanos.api.dto;
+package co.com.tanos.api.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

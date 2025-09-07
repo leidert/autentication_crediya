@@ -1,8 +1,8 @@
 package co.com.tanos.api;
 
 import co.com.tanos.model.user.User;
-import co.com.tanos.api.dto.UserRequest;
-import co.com.tanos.api.dto.UserResponse;
+import co.com.tanos.api.dto.request.UserRequest;
+import co.com.tanos.api.dto.response.UserResponse;
 import co.com.tanos.usecase.user.UserUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
-public class Handler {
+public class UserHandler {
 
 private  final UserUseCase useCase;
 
